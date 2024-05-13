@@ -31,7 +31,7 @@ def select_car():
     is_submit = input('1. submit order. 2. back: ')
     if is_submit == '1':
         print('Submit successfully, need to be reviewed by the admin!')
-        submit_order(id, days, fee)
+        submit_order(item, days, fee)
 
 
 def padWith(s):
@@ -42,9 +42,9 @@ def formatTime(time):
     day = padWith(time.day)
     month = padWith(time.month)
     year = time.year
-    hour = time.hour
-    minute = time.minute
-    second = time.second
+    hour = padWith(time.hour)
+    minute = padWith(time.minute)
+    second = padWith(time.second)
     return f"{day}/{month}/{year} {hour}:{minute}:{second}"
 
 
@@ -55,25 +55,29 @@ def formatDate(time):
     return f"{day}/{month}/{year}"
 
 
-def submit_order(id, days, fee):
+def submit_order(item, days, fee):
     from main import c, conn
     from login_register import _username
     now = datetime.now()
+    status = 'applying' # applying approved rejected
     order_time = formatTime(now)
     rent_from = formatDate(datetime.today() + timedelta(days=1))
     rent_to = formatDate(datetime.today() + timedelta(days=1+int(days)))
     c.execute('''CREATE TABLE IF NOT EXISTS rental_request (
                 id INTEGER PRIMARY KEY,
+                status TEXT,
                 username TEXT,
                 car_id INTEGER,
+                make TEXT,
+                model TEXT,
                 order_time TEXT,
                 rent_from TEXT,
                 rent_to TEXT,
                 total_price TEXT
              )''')
-    c.execute('''INSERT INTO rental_request (username, car_id, order_time, rent_from,
-        rent_to, total_price) VALUES (?, ?, ?, ?, ?, ?)''',
-              (_username, id, order_time, rent_from, rent_to, fee))
+    c.execute('''INSERT INTO rental_request (status, username, car_id, make, model, order_time, rent_from,
+        rent_to, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+              (status, _username,item['id'], item['make'], item['model'], order_time, rent_from, rent_to, fee))
     conn.commit()
 
 

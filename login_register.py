@@ -2,6 +2,7 @@ from watch_cars import watch_cars
 from edit_car import handle_car
 from utility import print_error
 from book_car import customer_handle
+from review_book import show_request
 _username = ''
 
 
@@ -39,10 +40,12 @@ def register():
 
 
 def admin_handle():
-    manage = input('1. car list 2. orders list 3. customer list: ')
+    manage = input('1. car list 2. request list 3. customer list: ')
     if manage == '1':
-
         handle_car()
+
+    elif manage == '2':
+        show_request()
 
 def login():
     from main import c

@@ -60,6 +60,7 @@ def update_car(conn, c):
 
         # Construct the SQL query
         placeholders = ', '.join([f"{headers[int(column_index)]}=?" for column_index in selected_columns])
+        print(placeholders)
         query = f"UPDATE cars SET {placeholders} WHERE id=?"
 
         # Execute the SQL query

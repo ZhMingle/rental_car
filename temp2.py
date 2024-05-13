@@ -2,17 +2,6 @@
 from main import *
 
 
-c.execute('''CREATE TABLE IF NOT EXISTS cars (
-                id INTEGER PRIMARY KEY,
-                make TEXT,
-                model TEXT,
-                year INTEGER,
-                mileage REAL,
-                available_now INTEGER,
-                min_rent_period INTEGER,
-                max_rent_period INTEGER
-             )''')
-
 c.execute('''CREATE TABLE IF NOT EXISTS bookings (
                 id INTEGER PRIMARY KEY,
                 user_id INTEGER,
