@@ -3,7 +3,6 @@ def is_cars_table_empty():
     c.execute("SELECT COUNT(*) FROM cars")
 
     count = c.fetchone()['COUNT(*)']
-    print(count)
     return count == 0
 
 
@@ -20,17 +19,14 @@ dummy_cars = [
     ('Mercedes-Benz', 'C-Class', 2019, 40000, 1, 1, 30, 140)
 ]
 
-
-# Define headers
-headers = ['ID', 'Make', 'Model', 'Year', 'Mileage', 'Available Now', 'Min Rent Period', 'Max Rent Period', 'Price']
-
-
 # Function to print a row with proper formatting
 def print_row(row):
     print("| {:<3} | {:<13} | {:<10} | {:<4} | {:<7} | {:<13} | {:<15} | {:<15} | {:<15} |".format(*row))
 
+
 # Function to print the table
-def print_table(data, headers):
+def print_table(data):
+    from utility import headers
     signs = "+-----+---------------+------------+------+---------+---------------+-----------------+-----------------+-----------------+"
     # Print header row
     print(signs)
@@ -68,10 +64,11 @@ def watch_cars():
 
     if cars:
         print("Available Cars:")
-        print_table(cars, headers)
+        print_table(cars)
 
     else:
         print("No cars available.")
+
 
 if __name__ == "__main__":
     watch_cars()

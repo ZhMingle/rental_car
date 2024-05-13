@@ -20,12 +20,12 @@ def register():
     while check_username(username):
         username = input('Username is duplicate, enter your username: ')
     password = input("Enter password: ")
-    input_role = input("Enter role  1-admin 2-customer: ")
+    input_role = input("Enter role  1.admin 2.customer: ")
     role = ''
     admin = '1'
     customer = '2'
     while admin != input_role != customer:
-        print_error('Please enter 1 or 2')
+        print_error('Enter 1 or 2')
         input_role = input("Enter role  1.admin 2.customer: ")
     if input_role == '1':
         role = 'admin'
@@ -35,7 +35,14 @@ def register():
     c.execute("INSERT INTO users (username, password, role) VALUES (?, ?, ?)", (username, password, role))
     conn.commit()
     print("User registered successfully!")
+    login_register()
 
+
+def admin_handle():
+    manage = input('1. car list 2. orders list 3. customer list: ')
+    if manage == '1':
+
+        handle_car()
 
 def login():
     from main import c
@@ -52,15 +59,11 @@ def login():
         watch_cars()
         customer_handle()
     elif user and user['role'] == 'admin':
-        manage = input('1. car list 2. orders list 3. customer list: 4. back')
-        if manage == '1':
-            watch_cars()
+        admin_handle()
 
-            handle = input('1. add car 2. update car 3. delete car: 4. back')
-            handle_car(handle)
     else:
         print_error("Invalid username or password!")
-        login()
+        login_register()
 
 
 def login_register():
@@ -71,7 +74,7 @@ def login_register():
                     password TEXT,
                     role TEXT
                  )''')
-    num = int(input('Welcome to car rental system!\nPlease enter \n1-login, 2-registration: '))
+    num = int(input('Welcome to car rental system! \n1.login, 2.registration: '))
 
     if num == 2:
         register()
