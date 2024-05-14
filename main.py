@@ -1,19 +1,40 @@
 import sqlite3
-from login_register import login_register
-from edit_car import update_car
 
 
-def dict_factory(cursor, row):
-    d = {}
-    for index, col in enumerate(cursor.description):
-        d[col[0]] = row[index]
-    return d
+class Database:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance._conn = sqlite3.connect('rental_car.db')
+            cls._instance._conn.row_factory = cls._instance.dict_factory
+            cls._instance._c = cls._instance._conn.cursor()
+        return cls._instance
+
+    @staticmethod
+    def dict_factory(cursor, row):
+        d = {}
+        for index, col in enumerate(cursor.description):
+            d[col[0]] = row[index]
+        return d
+
+    @property
+    def conn(self):
+        return self._conn
+
+    @property
+    def c(self):
+        return self._c
+
+    def close(self):
+        self._conn.close()
 
 
-conn = sqlite3.connect('rental_car.db')
-conn.row_factory = dict_factory
-c = conn.cursor()
+db = Database()
+c = db.c
+conn = db.conn
 
 if __name__ == '__main__':
-    login_register()
-    # update_car(conn, c)
+    from user_manage import UserManage
+    UserManage().login_register()
