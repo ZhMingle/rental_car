@@ -1,4 +1,3 @@
-from watch_cars import watch_cars
 from edit_car import handle_car
 from utility import print_error
 from book_car import customer_handle
@@ -59,7 +58,6 @@ def login():
         print("Login successful!")
         global _username
         _username = username
-        watch_cars()
         customer_handle()
     elif user and user['role'] == 'admin':
         admin_handle()

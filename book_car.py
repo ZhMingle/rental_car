@@ -3,9 +3,21 @@ from datetime import datetime, timedelta
 
 
 def customer_handle():
-    choice = input('1. Book a car 2. Show request: ')
+    from login_register import login_register
+    from watch_cars import watch_cars
+    from review_book import print_table
+    watch_cars()
+    choice = input('1. Book a car 2. Show request 3. back: ')
     if choice == '1':
         select_car()
+    elif choice == '2':
+        print_table('one')
+        b = input('Press Enter to back: ')
+        if b == '':
+            customer_handle()
+
+    elif choice == '3':
+        login_register()
 
 
 def select_car():
@@ -32,7 +44,8 @@ def select_car():
     if is_submit == '1':
         print('Submit successfully, need to be reviewed by the admin!')
         submit_order(item, days, fee)
-
+    elif is_submit == '2':
+        print('')
 
 def padWith(s):
     return str(s).rjust(2, '0')
@@ -46,7 +59,6 @@ def formatTime(time):
     minute = padWith(time.minute)
     second = padWith(time.second)
     return f"{day}/{month}/{year} {hour}:{minute}:{second}"
-
 
 def formatDate(time):
     day = padWith(time.day)

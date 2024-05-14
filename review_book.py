@@ -17,11 +17,21 @@ def handle_request():
     else:
         handle_request()
 
+
 def update_car_status(car_id):
     from main import c, conn
     c.execute(f"UPDATE cars SET available_now=? WHERE id=?", ('0', car_id))
     conn.commit()
-def print_table(data):
+
+
+def print_table(type='all'):
+    from main import c
+    from login_register import _username
+    if type == 'all':
+        c.execute('SELECT * FROM rental_request')
+    else:
+        c.execute('SELECT * FROM rental_request WHERE username=?', (_username, ))
+    data = c.fetchall()
     if not data:
         print("No data available")
         return
@@ -51,11 +61,9 @@ def print_table(data):
 
 # cars and rental_request combine a quest list
 def show_request():
-    from main import c
-    c.execute('SELECT * FROM rental_request')
-    li = c.fetchall()
-    print_table(li)
+    print_table()
     handle_request()
+
 
 if __name__ == '__main__':
     show_request()

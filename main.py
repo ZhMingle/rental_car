@@ -17,8 +17,3 @@ c = conn.cursor()
 if __name__ == '__main__':
     login_register()
     # update_car(conn, c)
-
-
-
-# def updateCar(carList):
-#     carList[0]['year'] = 2016
