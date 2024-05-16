@@ -1,6 +1,7 @@
 from utility import print_error, format_date, format_time
 from datetime import datetime, timedelta
 
+
 class BookCar:
     @staticmethod
     def customer_handle():
@@ -27,7 +28,7 @@ class BookCar:
         c.execute("SELECT * FROM cars WHERE ID=?", (id,))
         item = c.fetchone()
         if item:
-            print(f"You chosed: {item['make']} {item['model']} {item['year']}")
+            print(f"You chose: {item['make']} {item['model']} {item['year']}")
         else:
             print_error('Cannot find the car, please check')
             BookCar.select_car()
@@ -59,18 +60,6 @@ class BookCar:
         order_time = format_time(now)
         rent_from = format_date(datetime.today() + timedelta(days=1))
         rent_to = format_date(datetime.today() + timedelta(days=1+int(days)))
-        c.execute('''CREATE TABLE IF NOT EXISTS rental_request (
-                    id INTEGER PRIMARY KEY,
-                    status TEXT,
-                    username TEXT,
-                    car_id INTEGER,
-                    make TEXT,
-                    model TEXT,
-                    order_time TEXT,
-                    rent_from TEXT,
-                    rent_to TEXT,
-                    total_price TEXT
-                 )''')
         c.execute('''INSERT INTO rental_request (status, username, car_id, make, model, order_time, rent_from,
             rent_to, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
                   (status, UserManage._username,item['id'], item['make'], item['model'], order_time, rent_from, rent_to, fee))

@@ -58,7 +58,7 @@ class WatchCars:
                  )''')
         if WatchCars.is_cars_table_empty():
             c.executemany("INSERT INTO cars (make, model, year, mileage, available_now, min_rent_period, max_rent_period, "
-                          "price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", dummy_cars)
+                          "price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", WatchCars.dummy_cars)
             conn.commit()
         c.execute("SELECT * FROM cars WHERE available_now=1")
         cars = c.fetchall()

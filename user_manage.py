@@ -13,22 +13,20 @@ class UserManage:
 
     def register(self):
         print('--------🍓 be registering--------')
-        username = input("Enter username: ")
-        # If username is duplicate, let user enter again!
-        while self.check_username(username):
-            username = input('Username is duplicate, enter your username: ')
-        password = input("Enter password: ")
-        input_role = input("Enter role  1.admin 2.customer: ")
+        input_role = input("Enter role 1.admin 2.customer: ")
         role = ''
-        admin = '1'
-        customer = '2'
-        while admin != input_role != customer:
+        while '1' != input_role != '2':
             print_error('Enter 1 or 2')
             input_role = input("Enter role  1.admin 2.customer: ")
         if input_role == '1':
             role = 'admin'
         elif input_role == '2':
             role = 'customer'
+        username = input("Enter username: ")
+        # If username is duplicate, let user enter again!
+        while self.check_username(username):
+            username = input('Username is duplicate, enter your username: ')
+        password = input("Enter password: ")
 
         c.execute("INSERT INTO users (username, password, role) VALUES (?, ?, ?)", (username, password, role))
         conn.commit()

@@ -20,6 +20,7 @@ class AbstractCarManager(ABC):
     def update_car(self):
         pass
 
+
 class CarManage(AbstractCarManager):
     def __init__(self, conn, c):
         super().__init__(conn, c)
@@ -88,6 +89,7 @@ class CarManage(AbstractCarManager):
         self.handle_car()
 
     def handle_car(self):
+        from user_manage import UserManage
         WatchCars.watch_cars()
         handle = input('1. add car 2. update car 3. delete car 4. back: ')
         while handle not in ['1', '2', '3', '4']:
@@ -106,6 +108,5 @@ class CarManage(AbstractCarManager):
 
 if __name__ == '__main__':
     from main import conn, c
-    from user_manage import UserManage
     car_manager = CarManage(conn, c)
     car_manager.handle_car()

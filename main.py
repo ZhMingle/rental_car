@@ -33,6 +33,18 @@ class Database:
 
 db = Database()
 c = db.c
+c.execute('''CREATE TABLE IF NOT EXISTS rental_request (
+                       id INTEGER PRIMARY KEY,
+                       status TEXT,
+                       username TEXT,
+                       car_id INTEGER,
+                       make TEXT,
+                       model TEXT,
+                       order_time TEXT,
+                       rent_from TEXT,
+                       rent_to TEXT,
+                       total_price TEXT
+                    )''')
 conn = db.conn
 
 if __name__ == '__main__':

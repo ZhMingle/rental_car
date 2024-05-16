@@ -1,24 +1,26 @@
-## main.py is the start file!
+## Guidance
+1. main.py is the start file
+2. open main.py and press start button, or use command line: python ./main.py
+3. register first: you can register a customer and a admin
+4. login in then just follow the reminder.
 
-## user_manage
-1. login
-2. register
+## intruduce files
 
-## car_manage
-## Some details
+```commandline
+- Root
+  |-- book_car.py       for customer to select car and book a car 
+  |-- car_manage.py     for admin to add, update or delete a car
+  |-- main.py           the entry file and create database use singleton pattern
+  |-- readMe.md         this
+  |-- rental_car.db     database file
+  |-- review_book.py    for admin to review the book
+  |-- utility.py        some tool functions like formate date and print style
+  |-- watch_cars.py     show car list
 
-1. two roles: customer and admin
-2. customers can watch and book cars
-3. admins can manage cars, customers and orders
-4. distinguish customer: different customers should have private request list
+```
+## license: MIT
 
-## 
-- Only support whole day and from tomorrow.
-- Just enter a number
+## Known bugs or issues
+1. add a car, don't varify the input, may cause error, like price, input a str.
+2. about book a car: Only support whole day and from tomorrow.
 
-## About the review
-- Orders for the same car, agree to one of them, and the other automatically update the results
-- If admin approve the request, the customer can see the result and the car's status to be changed.
-- If admin reject the request, the customer can also see the result.
-
-## 
