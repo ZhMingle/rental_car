@@ -16,9 +16,11 @@ class RequestManager:
             c.execute(f"UPDATE rental_request SET status=? WHERE id=?", ('approve', _id))
             conn.commit()
             self.update_car_status(one['car_id'])
+            UserManage().admin_handle()
         elif approve_or_rej == '2':
             c.execute(f"UPDATE rental_request SET status=? WHERE id=?", ('reject', _id))
             conn.commit()
+            UserManage().admin_handle()
         else:
             self.handle_request()
 

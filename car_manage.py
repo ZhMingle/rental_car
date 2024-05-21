@@ -70,6 +70,11 @@ class CarManage(AbstractCarManager):
                 print(f"{i}. {header}")
 
             selected_columns = input("Enter the headers numbers (comma-separated): ")
+            arr = list(range(1, 9))
+            print(arr)
+            while not all(int(i) in arr for i in selected_columns.split(',')):
+                print_error('Invalid input')
+                selected_columns = input("Enter the headers numbers (comma-separated): ")
             selected_columns = selected_columns.split(',')
 
             new_values = []
@@ -101,7 +106,7 @@ class CarManage(AbstractCarManager):
         elif handle == '3':
             self.del_car()
         elif handle == '4':
-            UserManage.admin_handle()
+            UserManage().admin_handle()
         else:
             self.handle_car()
 

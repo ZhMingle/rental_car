@@ -33,15 +33,19 @@ class UserManage:
         print_success("User registered successfully!")
         self.login_register()
 
-    @staticmethod
-    def admin_handle():
+    def admin_handle(self):
         from review_book import RequestManager
-        manage = input('1. car list 2. request list: ')
+        manage = input('1. car list 2. request list: 3. back: ')
         if manage == '1':
             CarManage(conn, c).handle_car()
 
         elif manage == '2':
             RequestManager().show_request()
+        elif manage == '3':
+            self.login_register()
+        else:
+            print_error("Invalid input")
+            self.admin_handle()
 
     def login(self):
         print('--------🍄 logging --------')
